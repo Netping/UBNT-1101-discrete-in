@@ -1,11 +1,13 @@
 #!/usr/bin/python3
-import serial
-import serial.rs485
-import time
+#import serial
+#import serial.rs485
+#import time
+from discretein import *
 
 
 
 
+"""
 def main():
     s = serial.Serial(port='/dev/dkst1101/COM17',
                     baudrate=9600,
@@ -28,6 +30,14 @@ def main():
     print(temp)
 
     s.close()
+"""
+def main():
+    PG_in = DISCRETE_IN('IN1')
+
+    if PG_in.value():
+        print('PG_in = 1')
+    else:
+        print('PG_in = 0')
 
 if __name__ == "__main__":
     main()

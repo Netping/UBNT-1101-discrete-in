@@ -20,7 +20,7 @@ class DISCRETE_IN:
                                         timeout=1)
 
             DISCRETE_IN.ser.rs485_mode = serial.rs485.RS485Settings()
-            
+
         self.__channel = 0
         self.__outmap = ''
 
@@ -50,19 +50,19 @@ class DISCRETE_IN:
         return False
 
     def __request(self):
-        cmd = '$'+ format(DISCRETE_IN.deviceAddr, '02X') + '6\r'
-        cmd = ''.join(str(ord(c)) for c in cmd)
-        x = cmd.encode('ascii')
+        if DISCRETE_IN.ser:
+            cmd = '$'+ format(DISCRETE_IN.deviceAddr, '02X') + '6\r'
+            cmd = ''.join(str(ord(c)) for c in cmd)
+            x = cmd.encode('ascii')
 
-        s.write(x)
-        print(x)
-        time.sleep(0.2)
-        text = s.readline()
-        temp = text.decode('ascii')
-        temp = temp[1:-5]
+            DISCRETE_IN.ser.write(x)
+            time.sleep(0.2)
+            text = DISCRETE_IN.ser.readline()
+            temp = text.decode('ascii')
+            temp = temp[1:-5]
 
-        #fill outmap
-        self.__outmap = binascii.unhexlify(temp)
+            #fill outmap
+            self.__outmap = binascii.unhexlify(temp)
 
     def __del__(self):
         if self.__serial:

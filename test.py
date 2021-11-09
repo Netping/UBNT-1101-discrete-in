@@ -1,43 +1,75 @@
 #!/usr/bin/python3
-#import serial
-#import serial.rs485
-#import time
 from discretein import *
 
 
 
 
-"""
 def main():
-    s = serial.Serial(port='/dev/dkst1101/COM17',
-                    baudrate=9600,
-                    parity=serial.PARITY_NONE,
-                    stopbits=serial.STOPBITS_ONE,
-                    bytesize=serial.EIGHTBITS,
-                    timeout=1)
+    PG_in1 = DISCRETE_IN('IN1')
 
-    s.rs485_mode = serial.rs485.RS485Settings()
-
-    cmd = '$336\r'
-    cmd = ''.join(str(ord(c)) for c in cmd)
-    x = cmd.encode('ascii')
-
-    s.write(x)
-    print(x)
-    time.sleep(0.2)
-    text = s.readline()
-    temp = text.decode('ascii')
-    print(temp)
-
-    s.close()
-"""
-def main():
-    PG_in = DISCRETE_IN('IN1')
-
-    if PG_in.value():
-        print('PG_in = 1')
+    if PG_in1.value():
+        print('PG_in1 = 1')
     else:
-        print('PG_in = 0')
+        print('PG_in1 = 0')
+
+
+    PG_in2 = DISCRETE_IN('IN2')
+
+    if PG_in2.value():
+        print('PG_in2 = 1')
+    else:
+        print('PG_in2 = 0')
+
+
+    PG_in3 = DISCRETE_IN('IN3')
+
+    if PG_in3.value():
+        print('PG_in3 = 1')
+    else:
+        print('PG_in3 = 0')
+
+
+    PG_in4 = DISCRETE_IN('IN4')
+
+    if PG_in4.value():
+        print('PG_in4 = 1')
+    else:
+        print('PG_in4 = 0')
+
+
+    PG_in5 = DISCRETE_IN('IN5')
+
+    if PG_in5.value():
+        print('PG_in5 = 1')
+    else:
+        print('PG_in5 = 0')
+
+
+    PG_in6 = DISCRETE_IN('IN6')
+
+    if PG_in6.value():
+        print('PG_in6 = 1')
+    else:
+        print('PG_in6 = 0')
+
+
+    PG_in7 = DISCRETE_IN('IN7')
+
+    if PG_in7.value():
+        print('PG_in7 = 1')
+    else:
+        print('PG_in7 = 0')
+
+
+    PG_in8 = DISCRETE_IN('IN8')
+
+    if PG_in8.value():
+        print('PG_in8 = 1')
+    else:
+        print('PG_in8 = 0')
+
+
 
 if __name__ == "__main__":
     main()
+

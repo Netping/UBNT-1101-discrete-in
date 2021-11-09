@@ -19,8 +19,6 @@ class DISCRETE_IN:
                                         bytesize=serial.EIGHTBITS,
                                         timeout=1)
 
-            DISCRETE_IN.ser.rs485_mode = serial.rs485.RS485Settings()
-
         self.__channel = 0
         self.__outmap = ''
 
@@ -40,10 +38,13 @@ class DISCRETE_IN:
             self.__channel = 7
         elif channel.upper() == 'IN8':
             self.__channel = 8
-        else
+        else:
             print('Error: Bad channel name')
 
     def value(self):
+        
+        self.__request()
+
         if self.__outmap[self.__channel - 1] == '1':
             return True
 
@@ -51,19 +52,20 @@ class DISCRETE_IN:
 
     def __request(self):
         if DISCRETE_IN.ser:
+
             cmd = '$'+ format(DISCRETE_IN.deviceAddr, '02X') + '6\r'
-            cmd = ''.join(str(ord(c)) for c in cmd)
             x = cmd.encode('ascii')
 
             DISCRETE_IN.ser.write(x)
             time.sleep(0.2)
             text = DISCRETE_IN.ser.readline()
             temp = text.decode('ascii')
+            
             temp = temp[1:-5]
 
             #fill outmap
-            self.__outmap = binascii.unhexlify(temp)
+            self.__outmap = '{:08b}'.format(int(temp,16))[::-1]
 
     def __del__(self):
-        if self.__serial:
-            self.__serial.close()
+        if self.ser:
+            self.ser.close()
